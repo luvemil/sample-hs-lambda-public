@@ -12,6 +12,8 @@ dependencies:
 - base >= 4.7 && < 5
 - aws-lambda-haskell-runtime >= 3.0.0
 - aeson
+- polysemy
+- polysemy-plugin
 
 library:
   source-dirs: src
