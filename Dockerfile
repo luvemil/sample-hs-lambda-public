@@ -3,14 +3,18 @@ ARG EXECUTABLE_NAME=bootstrap
 
 FROM ghcr.io/luvemil/base-hs-lambda:nightly-2022-11-12 as build
 
-# Build the lambda
-COPY . /root/lambda-function/
-
+# Build the dependencies
+RUN mkdir -p /root/lambda-function/
 RUN cd /root/lambda-function
 WORKDIR /root/lambda-function/
 
-RUN stack clean --full
-RUN stack build
+COPY package.yaml stack.yaml /root/lambda-function/
+RUN stack build --dependencies-only
+
+# Build the lambda
+COPY . /root/lambda-function/
+
+RUN stack build --copy-bins
 
 ARG OUTPUT_DIR
 
@@ -19,7 +23,7 @@ RUN mkdir -p ${OUTPUT_DIR} && \
 
 ARG EXECUTABLE_NAME
 
-RUN cp $(stack path --local-install-root)/bin/${EXECUTABLE_NAME} ${OUTPUT_DIR}/${EXECUTABLE_NAME}
+RUN cp $(stack path --local-bin)/${EXECUTABLE_NAME} ${OUTPUT_DIR}/${EXECUTABLE_NAME}
 
 ENTRYPOINT sh
 

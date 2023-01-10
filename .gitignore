@@ -1,3 +1,6 @@
 .stack-work/
 build/
 *~
+
+.env
+!.env.sample

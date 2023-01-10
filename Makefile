@@ -1,5 +1,3 @@
-REGISTRY=registry
-IMAGE_NAME=image-name
 IMAGE_TAG=latest
 
 all:
