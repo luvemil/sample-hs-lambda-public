@@ -1,0 +1,8 @@
+resolver: nightly-2022-11-12
+
+packages:
+- .
+
+extra-deps:
+- git: https://github.com/eir-forsakring/aws-lambda-haskell-runtime.git
+  commit: 3845d73325036aa6871c51981ffc348917622c78
